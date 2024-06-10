@@ -1,7 +1,13 @@
 {
     "cSpell.words": [
         "astype",
+        "cbar",
+        "cmap",
+        "colorbar",
         "fillna",
-        "yenimahalle"
+        "fontsize",
+        "xlabel",
+        "yenimahalle",
+        "ylabel"
     ]
 }
