@@ -44,14 +44,35 @@ plt.title("Parks in Yenimahalle")
 
 # Use the area to determine the size of the points
 size = data["area"] / 10
-# plt.scatter(longitude, latitude, s=size, alpha=0.5)
 
-# Add the name of the parks to the plot as labels
-for i, name in enumerate(data["name"]):
-    plt.text(longitude[i], latitude[i], name.lower(), fontsize=8)
+# Add the name of the parks to the plot but only show the names that are not too close to each other
+# In order to do that, we need to calculate the distance between the points using the latitude and longitude
+def distance(lat1, lon1, lat2, lon2):
+    return ((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2) ** 0.5
 
-# Remove the texts that are too close to each other
-plt.tight_layout()
+
+# Create a list to store the names of the parks that are not too close to each other
+park_names = []
+for i in range(len(data)):
+    # Check if the park is too close to any other park
+    too_close = False
+    for name in park_names:
+        if distance(latitude[i], longitude[i], latitude[name], longitude[name]) < 0.5:
+            too_close = True
+            break
+    # Add the park to the list if it is not too close to any other park
+    if not too_close:
+        park_names.append(i)
+        # Add the name of the park to the plot
+        plt.text(
+            longitude[i],
+            latitude[i],
+            data["name"][i].lower(),
+            fontsize=8,
+            ha="right",
+            va="bottom",
+            color="black",
+        )
 
 # Change the color of the points based on the presence of saplings, resting, sports, playground, grass
 saplings = data["saplings"]
@@ -64,6 +85,7 @@ grass = data["grass"]
 labels = ["saplings", "resting", "sports", "playground", "grass"]
 colors = ["forestgreen", "blue", "red", "orange", "limegreen"]
 
+
 def mix_colors(color1, color2):
     # Get the RGB values of the predefined matplotlib colors
     r1, g1, b1 = matplotlib.colors.to_rgba(color1)[:3]
@@ -73,6 +95,7 @@ def mix_colors(color1, color2):
     g = (g1 + g2) / 2
     b = (b1 + b2) / 2
     return (r, g, b)
+
 
 # Create a color map for the points based on the presence of the attributes,
 # mix the colors if multiple attributes are present, store the labels and colors for the legend
@@ -113,4 +136,4 @@ plt.legend(handles=color_map_legend, loc="upper right")
 plt.show()
 
 # Save the plot to a file
-plt.savefig("data/yenimahalle/parks.png")
+plt.savefig("data/yenimahalle/parks_map.png")
