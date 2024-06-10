@@ -6,6 +6,7 @@
         "colorbar",
         "fillna",
         "fontsize",
+        "markersize",
         "xlabel",
         "yenimahalle",
         "ylabel"
