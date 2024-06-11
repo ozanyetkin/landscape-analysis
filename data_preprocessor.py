@@ -25,7 +25,7 @@ data["playground"] = data["attributes"].apply(lambda x: 1 if "ç" in x else 0)
 data["grass"] = data["attributes"].apply(lambda x: 1 if "ya" in x else 0)
 
 # Drop the attributes column
-data = data.drop("attributes", axis=1)
+# data = data.drop("attributes", axis=1)
 
 # Save the preprocessed data to a new CSV file
 data.to_csv("data/yenimahalle/park_preprocessed.csv", index=False)

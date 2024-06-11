@@ -45,6 +45,7 @@ plt.title("Parks in Yenimahalle")
 # Use the area to determine the size of the points
 size = data["area"] / 10
 
+
 # Add the name of the parks to the plot but only show the names that are not too close to each other
 # In order to do that, we need to calculate the distance between the points using the latitude and longitude
 def distance(lat1, lon1, lat2, lon2):
@@ -98,7 +99,7 @@ def mix_colors(color1, color2):
 
 
 # Create a color map for the points based on the presence of the attributes,
-# mix the colors if multiple attributes are present, store the labels and colors for the legend
+# Mix the colors if multiple attributes are present, store the labels and colors for the legend
 color_map = []
 for i in range(len(data)):
     color = "white"
